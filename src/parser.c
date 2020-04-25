@@ -1234,58 +1234,81 @@ network parse_network_cfg_custom(char *filename, int batch, int time_steps)
         layer l = { (LAYER_TYPE)0 };
         LAYER_TYPE lt = string_to_layer_type(s->type);
         if(lt == CONVOLUTIONAL){
+            printf("parse_convolutional\n");
             l = parse_convolutional(options, params);
         }else if(lt == LOCAL){
+            printf("parse_local\n");
             l = parse_local(options, params);
         }else if(lt == ACTIVE){
+            printf("parse_activation\n");
             l = parse_activation(options, params);
         }else if(lt == RNN){
+            printf("parse_rnn\n");
             l = parse_rnn(options, params);
         }else if(lt == GRU){
+            printf("parse_gru\n");
             l = parse_gru(options, params);
         }else if(lt == LSTM){
+            printf("parse_lstm\n");
             l = parse_lstm(options, params);
         }else if (lt == CONV_LSTM) {
+            printf("parse_conv_lstm\n");
             l = parse_conv_lstm(options, params);
         }else if(lt == CRNN){
+            printf("parse_crnn\n");
             l = parse_crnn(options, params);
         }else if(lt == CONNECTED){
+            printf("parse_connected\n");
             l = parse_connected(options, params);
         }else if(lt == CROP){
+            printf("parse_crop\n");
             l = parse_crop(options, params);
         }else if(lt == COST){
+            printf("parse_cost\n");
             l = parse_cost(options, params);
             l.keep_delta_gpu = 1;
         }else if(lt == REGION){
+            printf("parse_region\n");
             l = parse_region(options, params);
             l.keep_delta_gpu = 1;
         }else if (lt == YOLO) {
+            printf("parse_yolo\n");
             l = parse_yolo(options, params);
             l.keep_delta_gpu = 1;
         }else if (lt == GAUSSIAN_YOLO) {
+            printf("parse_gaussian_yolo\n");
             l = parse_gaussian_yolo(options, params);
             l.keep_delta_gpu = 1;
         }else if(lt == DETECTION){
+            printf("parse_detection\n");
             l = parse_detection(options, params);
         }else if(lt == SOFTMAX){
+            printf("parse_softmax\n");
             l = parse_softmax(options, params);
             net.hierarchy = l.softmax_tree;
             l.keep_delta_gpu = 1;
         }else if(lt == NORMALIZATION){
+            printf("parse_normalization\n");
             l = parse_normalization(options, params);
         }else if(lt == BATCHNORM){
+            printf("parse_batchnorm\n");
             l = parse_batchnorm(options, params);
         }else if(lt == MAXPOOL){
+            printf("parse_maxpool\n");
             l = parse_maxpool(options, params);
         }else if (lt == LOCAL_AVGPOOL) {
             l = parse_local_avgpool(options, params);
         }else if(lt == REORG){
+            printf("parse_reorg\n");
             l = parse_reorg(options, params);        }
         else if (lt == REORG_OLD) {
+            printf("parse_reorg_old\n");
             l = parse_reorg_old(options, params);
         }else if(lt == AVGPOOL){
+            printf("parse_avgpool\n");
             l = parse_avgpool(options, params);
         }else if(lt == ROUTE){
+            printf("parse_route\n");
             l = parse_route(options, params);
             int k;
             for (k = 0; k < l.n; ++k) {

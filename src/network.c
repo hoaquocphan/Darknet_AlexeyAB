@@ -260,6 +260,8 @@ network make_network(int n)
 
 void forward_network(network net, network_state state)
 {
+    printf("forward_network\n");
+    //net.n = 24
     state.workspace = net.workspace;
     int i;
     for(i = 0; i < net.n; ++i){
@@ -269,6 +271,7 @@ void forward_network(network net, network_state state)
             scal_cpu(l.outputs * l.batch, 0, l.delta, 1);
         }
         //double time = get_time_point();
+        printf("l.forward\n");
         l.forward(l, state);
         //printf("%d - Predicted in %lf milli-seconds.\n", i, ((double)get_time_point() - time) / 1000);
         state.input = l.output;
@@ -726,6 +729,14 @@ float *network_predict(network net, float *input)
     return out;
 }
 
+//float *truth;
+//float *input;
+//float *delta;
+//float *workspace;
+//int train;
+//int index;
+//network net;
+
 int num_detections(network *net, float thresh)
 {
     int i;
@@ -791,8 +802,17 @@ void fill_network_boxes(network *net, int w, int h, float thresh, float hier, in
 {
     int prev_classes = -1;
     int j;
+    printf("net->n: %d\n",net->n);
+    float *predict = net->layers[0].output;
+    for(int i=0; i<1000;i++)
+    {
+        //printf("predict %f",predict[i]);
+    }
+    
     for (j = 0; j < net->n; ++j) {
         layer l = net->layers[j];
+        printf("l.n: %d\n",net->layers[j].n);
+        printf("l.biases: %f\n",net->layers[j].biases);
         if (l.type == YOLO) {
             int count = get_yolo_detections(l, w, h, net->w, net->h, thresh, map, relative, dets, letter);
             dets += count;

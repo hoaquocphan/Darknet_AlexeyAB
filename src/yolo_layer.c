@@ -326,10 +326,12 @@ static int entry_index(layer l, int batch, int location, int entry)
 
 void forward_yolo_layer(const layer l, network_state state)
 {
+    printf("forward_yolo_layer\n");
     int i, j, b, t, n;
     memcpy(l.output, state.input, l.outputs*l.batch * sizeof(float));
 
 #ifndef GPU
+    printf("l.batch: %d\n",l.batch);
     for (b = 0; b < l.batch; ++b) {
         for (n = 0; n < l.n; ++n) {
             int index = entry_index(l, b, n*l.w*l.h, 0);
@@ -340,6 +342,7 @@ void forward_yolo_layer(const layer l, network_state state)
         }
     }
 #endif
+
 
     // delta is zeroed
     memset(l.delta, 0, l.outputs * l.batch * sizeof(float));

@@ -1563,6 +1563,25 @@ void test_detector(char *datacfg, char *cfgfile, char *weightfile, char *filenam
 
         float *X = sized.data;
 
+        /*
+        for(size_t i = 519100; i<519200; i++){
+            printf("out1: %d", i);
+            printf(" output: %f\n", X[i]);
+        }
+        */
+        
+        /*
+        // write image data to file
+        char* data_image = "data_image.txt";
+        FILE *fp;
+        fp = fopen(data_image, "w+");
+        for (int i=0;i<416*416*3;i++)
+        {
+            fprintf(fp, "%f\n", X[i]);
+        }
+        fclose(fp);
+        */
+        
         //time= what_time_is_it_now();
         double time = get_time_point();
         network_predict(net, X);
@@ -1840,7 +1859,7 @@ void run_detector(int argc, char **argv)
     char *out_filename = find_char_arg(argc, argv, "-out_filename", 0);
     char *outfile = find_char_arg(argc, argv, "-out", 0);
     char *prefix = find_char_arg(argc, argv, "-prefix", 0);
-    float thresh = find_float_arg(argc, argv, "-thresh", .25);    // 0.24
+    float thresh = find_float_arg(argc, argv, "-thresh", .55);    // 0.24
     float iou_thresh = find_float_arg(argc, argv, "-iou_thresh", .5);    // 0.5 for mAP
     float hier_thresh = find_float_arg(argc, argv, "-hier", .5);
     int cam_index = find_int_arg(argc, argv, "-c", 0);
